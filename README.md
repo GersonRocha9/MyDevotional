@@ -6,7 +6,7 @@ Welcome to the MyDevotional, an application designed to provide you with persona
 ## Screenshots
 Below are a couple of screenshots showcasing the app's interface:
 
-<img src="./assets/screenshots/home.png" alt="Screenshot 1" width="400" /> <img src="./assets/screenshots/devotional.png" alt="Screenshot 2" width="400" />
+<img src="./assets/screenshots/home.png" alt="Screenshot 1" width="300" /> <img src="./assets/screenshots/devotional.png" alt="Screenshot 2" width="300" />
 
 ## How to Run the Project Locally
 
