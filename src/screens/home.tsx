@@ -1,12 +1,13 @@
+import { Button, Screen, Text, TextArea } from '@components'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@routes'
 import { useState } from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
 
 export function HomeScreen({ navigation }: Props) {
   const [value, setValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const generateDevotional = async () => {
     const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY
@@ -25,6 +26,7 @@ export function HomeScreen({ navigation }: Props) {
     }
 
     try {
+      setIsLoading(true)
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -45,60 +47,33 @@ export function HomeScreen({ navigation }: Props) {
       })
     } catch (error) {
       console.error('Error fetching AI response:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 16,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 24,
-          marginBottom: 16,
-        }}
-      >
-        Olá, digite um tema e gere seu devocional personalizado!
+    <Screen scrollable>
+      <Text marginBottom="s8" preset="headingLarge">
+        Olá
+      </Text>
+      <Text preset="paragraphLarge" mb="s40">
+        Digite seu e-mail e senha para entrar
       </Text>
 
-      <TextInput
-        editable
-        multiline
-        numberOfLines={4}
-        onChangeText={setValue}
+      <TextArea
+        placeholder="Escreva o tema do devocional"
         value={value}
-        style={{
-          width: '100%',
-          borderWidth: 1,
-          borderRadius: 4,
-          padding: 10,
-        }}
+        onChangeText={setValue}
       />
 
-      <TouchableOpacity
+      <Button
+        loading={isLoading}
+        disabled={!value || isLoading}
         onPress={generateDevotional}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'lightblue',
-          padding: 16,
-          borderRadius: 4,
-          marginTop: 16,
-        }}
-      >
-        <Text
-          style={{
-            color: 'blue',
-          }}
-        >
-          Gerar devocional
-        </Text>
-      </TouchableOpacity>
-    </View>
+        marginTop="s48"
+        title="Gerar devocional"
+      />
+    </Screen>
   )
 }
