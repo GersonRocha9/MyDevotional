@@ -1,13 +1,15 @@
 import { Button, Screen, Text, TextArea } from '@components'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@routes'
-import { useState } from 'react'
+import LottieView from 'lottie-react-native'
+import { useRef, useState } from 'react'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
 
 export function HomeScreen({ navigation }: Props) {
   const [value, setValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const animation = useRef<LottieView>(null)
 
   const generateDevotional = async () => {
     const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY
@@ -54,11 +56,26 @@ export function HomeScreen({ navigation }: Props) {
 
   return (
     <Screen scrollable>
+      <LottieView
+        autoPlay
+        ref={animation}
+        style={{
+          width: 300,
+          height: 300,
+          alignSelf: 'center',
+        }}
+        source={require('../assets/animations/bible.json')}
+      />
+
       <Text marginBottom="s8" preset="headingLarge">
-        Olá
+        Olá!
       </Text>
       <Text preset="paragraphLarge" mb="s40">
-        Digite seu e-mail e senha para entrar
+        Bem-vindo ao MyDevotional.
+      </Text>
+
+      <Text preset="paragraphMedium" mb="s8">
+        Qual o tema do devocional de hoje?
       </Text>
 
       <TextArea
