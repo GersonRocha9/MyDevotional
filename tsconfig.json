@@ -4,23 +4,32 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "@assets/*": [
-        "src/assets/*"
+      "@components": [
+        "src/components"
       ],
-      "@components/*": [
-        "src/components/*"
+      "@hooks": [
+        "src/hooks"
       ],
-      "@screens/*": [
-        "src/screens/*"
+      "@routes": [
+        "src/routes"
       ],
-      "@services/*": [
-        "src/services/*"
+      "@screens": [
+        "src/screens"
       ],
-      "@routes/*": [
-        "src/routes/*"
+      "@theme": [
+        "src/theme"
       ],
-      "@utils/*": [
-        "src/utils/*"
+      "@api": [
+        "src/api"
+      ],
+      "@types": [
+        "src/types"
+      ],
+      "@utils": [
+        "src/utils"
+      ],
+      "@assets": [
+        "src/assets"
       ],
     }
   }
