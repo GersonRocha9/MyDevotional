@@ -1,6 +1,7 @@
+import { Screen, Text } from '@components'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@routes'
-import { ScrollView, Text } from 'react-native'
+import Markdown from 'react-native-markdown-display'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Devotional'>
 
@@ -8,31 +9,12 @@ export function DevotionalScreen({ route }: Props) {
   const { devotional } = route.params
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 16,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 24,
-          marginBottom: 16,
-        }}
-      >
-        Seu devocional personalizado está aqui!
+    <Screen canGoBack scrollable canShare>
+      <Text preset="headingSmall" mb="s32">
+        Esse é o devocional gerado para você:
       </Text>
 
-      <Text
-        style={{
-          fontSize: 14,
-          marginBottom: 16,
-        }}
-      >
-        {devotional}
-      </Text>
-    </ScrollView>
+      <Markdown>{devotional}</Markdown>
+    </Screen>
   )
 }
