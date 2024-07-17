@@ -8,6 +8,7 @@ import {
 } from '@components'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
+import { Share } from 'react-native'
 
 const ICON_SIZE = 20
 type Props = Pick<
@@ -29,6 +30,25 @@ export function ScreenHeader({
   }
 
   const showBackLabel = !title && !HeaderComponent
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: canShare!,
+      })
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Box
@@ -62,7 +82,7 @@ export function ScreenHeader({
         <TouchableOpacityBox
           flexDirection="row"
           alignItems="center"
-          onPress={() => {}}
+          onPress={onShare}
         >
           <Text preset="paragraphMedium" semiBold mr="s8">
             Compartilhar
