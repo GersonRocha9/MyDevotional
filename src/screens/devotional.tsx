@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Text, View } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 
 import { RootStackParamList } from '../routes/routes'
 
@@ -9,7 +9,14 @@ export function DevotionalScreen({ route }: Props) {
   const { devotional } = route.params
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+    <ScrollView
+      contentContainerStyle={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16,
+      }}
+    >
       <Text
         style={{
           fontSize: 24,
@@ -27,6 +34,6 @@ export function DevotionalScreen({ route }: Props) {
       >
         {devotional}
       </Text>
-    </View>
+    </ScrollView>
   )
 }

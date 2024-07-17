@@ -1,11 +1,63 @@
-import { NavigationProp } from '@react-navigation/native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 import { RootStackParamList } from '../routes/routes'
 
-export function HomeScreen({ navigation }: { navigation: NavigationProp<RootStackParamList> }) {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
+
+export function HomeScreen({ navigation }: Props) {
   const [value, setValue] = useState('')
+
+  const [devotional, setDevotional] = useState('')
+
+  const generateDevotional = async () => {
+    const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY
+    const prompt = `Gere um devocional sobre o tema: ${value}. Inclua um título, um versículo base, 3 tópicos de reflexão com 3 parágrafos cada e uma conclusão.`
+    const apiUrl = 'https://api.openai.com/v1/chat/completions'
+
+    const requestData = {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+      ],
+      temperature: 1,
+      max_tokens: 300,
+      top_p: 1,
+      frequency_penalty: 0.5,
+      presence_penalty: 0,
+    }
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(requestData),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP Error! Status: ${response.status}`)
+      }
+
+      const responseData = await response.json()
+
+      setDevotional(responseData.choices[0].message)
+
+      console.log('AI response:', responseData.choices[0].message)
+
+      navigation.navigate('Devotional', {
+        devotional,
+      })
+    } catch (error) {
+      console.error('Error fetching AI response:', error)
+    }
+  }
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
@@ -33,11 +85,7 @@ export function HomeScreen({ navigation }: { navigation: NavigationProp<RootStac
       />
 
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('Devotional', {
-            devotional: value,
-          })
-        }
+        onPress={generateDevotional}
         style={{
           alignItems: 'center',
           justifyContent: 'center',
