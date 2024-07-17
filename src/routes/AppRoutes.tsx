@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { DevotionalScreen } from '@screens/Devotional'
-import { HomeScreen } from '@screens/Home'
+import { HomeScreen, DevotionalScreen } from '@screens'
 import * as React from 'react'
 
 export type RootStackParamList = {
