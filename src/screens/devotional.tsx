@@ -9,12 +9,22 @@ export function DevotionalScreen({ route }: Props) {
   const { devotional } = route.params
 
   return (
-    <Screen canGoBack scrollable canShare>
-      <Text preset="headingSmall" mb="s32">
+    <Screen canGoBack scrollable canShare={devotional}>
+      <Text preset="headingMedium" mb="s24">
         Esse é o devocional gerado para você:
       </Text>
 
-      <Markdown>{devotional}</Markdown>
+      <Markdown
+        style={{
+          body: {
+            fontFamily: 'Satoshi-Regular',
+            fontSize: 16,
+            lineHeight: 24,
+          },
+        }}
+      >
+        {devotional}
+      </Markdown>
     </Screen>
   )
 }
