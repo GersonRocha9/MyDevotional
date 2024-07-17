@@ -13,12 +13,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Devotional" component={DevotionalScreen} />
       </Stack.Navigator>
     </NavigationContainer>
