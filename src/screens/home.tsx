@@ -9,8 +9,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
 export function HomeScreen({ navigation }: Props) {
   const [value, setValue] = useState('')
 
-  const [devotional, setDevotional] = useState('')
-
   const generateDevotional = async () => {
     const apiKey = process.env.EXPO_PUBLIC_OPENAI_API_KEY
     const prompt = `Gere um devocional sobre o tema: ${value}. Inclua um título, um versículo base, 3 tópicos de reflexão com 3 parágrafos cada e uma conclusão.`
@@ -25,10 +23,6 @@ export function HomeScreen({ navigation }: Props) {
         },
       ],
       temperature: 1,
-      max_tokens: 300,
-      top_p: 1,
-      frequency_penalty: 0.5,
-      presence_penalty: 0,
     }
 
     try {
@@ -47,12 +41,8 @@ export function HomeScreen({ navigation }: Props) {
 
       const responseData = await response.json()
 
-      setDevotional(responseData.choices[0].message)
-
-      console.log('AI response:', responseData.choices[0].message)
-
       navigation.navigate('Devotional', {
-        devotional,
+        devotional: responseData?.choices[0]?.message?.content,
       })
     } catch (error) {
       console.error('Error fetching AI response:', error)
@@ -74,7 +64,7 @@ export function HomeScreen({ navigation }: Props) {
         editable
         multiline
         numberOfLines={4}
-        onChangeText={(text) => setValue(text)}
+        onChangeText={setValue}
         value={value}
         style={{
           width: '100%',

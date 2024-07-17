@@ -28,7 +28,7 @@ export function DevotionalScreen({ route }: Props) {
 
       <Text
         style={{
-          fontSize: 18,
+          fontSize: 14,
           marginBottom: 16,
         }}
       >
