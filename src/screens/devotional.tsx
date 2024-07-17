@@ -1,7 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from '@routes/AppRoutes'
 import { ScrollView, Text } from 'react-native'
-
-import { RootStackParamList } from '../routes/routes'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Devotional'>
 

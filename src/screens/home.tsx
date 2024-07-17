@@ -1,8 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from '@routes/AppRoutes'
 import { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-
-import { RootStackParamList } from '../routes/routes'
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
 
@@ -50,7 +49,14 @@ export function HomeScreen({ navigation }: Props) {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16,
+      }}
+    >
       <Text
         style={{
           fontSize: 24,
