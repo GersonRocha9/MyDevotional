@@ -9,6 +9,7 @@ import { ScreenHeader } from './ScreenHeader'
 export interface ScreenProps extends BoxProps {
   children: React.ReactNode
   HeaderComponent?: React.ReactNode
+  canShare?: boolean
   canGoBack?: boolean
   scrollable?: boolean
   title?: string
@@ -17,6 +18,7 @@ export interface ScreenProps extends BoxProps {
 
 export function Screen({
   children,
+  canShare = false,
   canGoBack = false,
   scrollable = false,
   noPaddingHorizontal = false,
@@ -44,6 +46,7 @@ export function Screen({
             paddingHorizontal={noPaddingHorizontal ? 's24' : undefined}
             HeaderComponent={HeaderComponent}
             canGoBack={canGoBack}
+            canShare={canShare}
             title={title}
           />
           {children}

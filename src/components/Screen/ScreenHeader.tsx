@@ -1,13 +1,23 @@
-import { Box, BoxProps, Text, TouchableOpacityBox } from '@components'
+import {
+  Box,
+  BoxProps,
+  Text,
+  TouchableOpacityBox,
+  ScreenProps,
+  Icon,
+} from '@components'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 
-import { ScreenProps } from './Screen'
 const ICON_SIZE = 20
-type Props = Pick<ScreenProps, 'title' | 'canGoBack' | 'HeaderComponent'> &
+type Props = Pick<
+  ScreenProps,
+  'title' | 'canGoBack' | 'canShare' | 'HeaderComponent'
+> &
   BoxProps
 export function ScreenHeader({
   canGoBack,
+  canShare,
   title,
   HeaderComponent,
   ...boxProps
@@ -30,13 +40,12 @@ export function ScreenHeader({
     >
       {canGoBack && (
         <TouchableOpacityBox
-          testID="screen-back-button"
           flexDirection="row"
           alignItems="center"
           mr={showBackLabel ? 's10' : undefined}
           onPress={navigation.goBack}
         >
-          {/* <Icon size={ICON_SIZE} name="arrowLeft" color="primary" /> */}
+          <Icon size={ICON_SIZE} name="arrowLeft" color="primary" />
           {showBackLabel && (
             <Text preset="paragraphMedium" semiBold ml="s8">
               Voltar
@@ -44,9 +53,23 @@ export function ScreenHeader({
           )}
         </TouchableOpacityBox>
       )}
+
       {HeaderComponent}
       {title && <Text preset="headingSmall">{title}</Text>}
       {title && <Box backgroundColor="carrotSecondary" width={ICON_SIZE} />}
+
+      {canShare && (
+        <TouchableOpacityBox
+          flexDirection="row"
+          alignItems="center"
+          onPress={() => {}}
+        >
+          <Text preset="paragraphMedium" semiBold mr="s8">
+            Compartilhar
+          </Text>
+          <Icon size={ICON_SIZE} name="flashOn" color="primary" />
+        </TouchableOpacityBox>
+      )}
     </Box>
   )
 }
