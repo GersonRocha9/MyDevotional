@@ -33,6 +33,8 @@ export function TextArea({ value, ...rnTextInputProps }: TextAreaProps) {
         <RNTextInput
           ref={inputRef}
           value={value}
+          multiline
+          textAlignVertical="top"
           placeholderTextColor={colors.gray2}
           style={[$textInputStyle, { color: colors.gray1 }]}
           {...rnTextInputProps}
@@ -49,4 +51,5 @@ const $textInputStyle: TextStyle = {
   color: colors.palette.grayBlack,
   fontFamily: $fontFamily.regular,
   ...$fontSizes.paragraphMedium,
+  height: 100,
 }
